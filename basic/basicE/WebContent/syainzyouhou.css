@@ -1,0 +1,25 @@
+@CHARSET "UTF-8";
+*{
+	margin:0;
+	padding:0;
+}
+h1{
+	margin:10px;
+}
+table{
+	margin:10px;
+	border:solid 1px;
+}
+
+thead th{
+	background-color:#5555ff;
+	border:solid 1px;
+	padding:5px;
+}
+td{
+	border:solid 1px;
+	padding:5px;
+}
+#create{
+	margin:10px;
+}
