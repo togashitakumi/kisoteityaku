@@ -32,8 +32,10 @@ var display = function() {
 }
 var create = function(){
 	// 部署名
+	var newDepartId = $('#newId').val();
 	var newDepartmentName = $('#newDp').val();
 	var requestQuery = {
+			creId : newDepartId,
 			creDp : newDepartmentName,
 			};
 	console.log('requestQuery',requestQuery);
@@ -48,6 +50,7 @@ var create = function(){
 	// 確認のために返却値を出力
 	console.log('返却値', json);
 	// 登録完了のアラート
+	$('#display').empty();
 	display();
 	},
 	error:function(XMLHttpRequest, textStatus, errorThrown){

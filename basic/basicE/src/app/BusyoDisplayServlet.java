@@ -103,6 +103,7 @@ public class BusyoDisplayServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// 部署名
+		String  creId= request.getParameter("creId");
 		String  creDp= request.getParameter("creDp");
 		// JDBCドライバの準備
 		try {
@@ -117,8 +118,7 @@ public class BusyoDisplayServlet extends HttpServlet {
 		String user = "basic";
 		String pass = "basic";
 		// 実行するSQL文
-		String sql = "insert into BASEBALL " + "(REC_CD, BAT_NAME, AT_BAT, HIT, BAT_YEAR) " + "values " + "('" + recCd
-				+ "','" + batterName + "','" + bat + "','" + hit + "','" + year + "') ";
+		String sql = "insert into  BUSYO (BUSYO_ID,BUSYO_NAME) values ('"+creId+"','"+creDp+"') ";
 		// エラーが発生するかもしれない処理はtry-catchで囲みます
 		// この場合はDBサーバへの接続に失敗する可能性があります
 		try (
