@@ -60,7 +60,7 @@ public class DpUpdateServlet extends HttpServlet {
 		String sql = "update BUSYO "
 		+ "set BUSYO_NAME = '"+updateDpName+"'"
 		+ "where 1=1 "
-		+ " ";
+		+ "and BUSYO_NAME = '"+originDpName+"' ";
 		// エラーが発生するかもしれない処理はtry-catchで囲みます
 		// この場合はDBサーバへの接続に失敗する可能性があります
 		try (
@@ -78,7 +78,6 @@ public class DpUpdateServlet extends HttpServlet {
 		// JSONで出力する
 		pw.append(new ObjectMapper().writeValueAsString("ok"));
 
-	}
 	}
 
 }
