@@ -20,7 +20,7 @@ var display = function() {
 								+ (i + 1)
 								+ '</td><td id="department'+(i + 1)+'">'
 								+ display.departmentName
-								+ '</td><td><button id="edit'+(i + 1)+'" value="'+display.departmentName+'">編集</button></td><td><button id="delite'+(i + 1)+'" value="'+display.departmentName+'">削除</button></td></tr>';
+								+ '</td><td><button id="edit'+(i + 1)+'" value="'+display.departmentName+'">編集</button></td><td><button id="delete'+(i + 1)+'" value="'+display.departmentName+'">削除</button></td></tr>';
 						count++;
 					}
 					// HTMLに挿入
@@ -134,14 +134,16 @@ var editArea = function(){
 	var editBox='<input type="text"value="'+b+'" id="originName"></input><input type="text"placeholder="変更後" id="updateName"></input>'
 				+'<button id="editConfirm">編集確定</button>';
 	$('#editBox').append(editBox);
+	$('#editConfirm').click(update);
 }
 $(document).ready(function() {
 	display();
+	//$('#display').ready('load',display);
 	$('#create').click(create);
 	for(var i =1; i<=count;i++){
 		$('#edit'+i+'').click(editArea);
 		$('#delete'+i+'').click(deleteDp);
 	}
-	$('#editConfirm').click(update);
+
 
 });
