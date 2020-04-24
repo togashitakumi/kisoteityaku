@@ -1,3 +1,4 @@
+var count = 0;
 var display = function() {
 	// サーバーからデータを取得する
 	var requestQuery = {q : 1};
@@ -6,6 +7,7 @@ var display = function() {
 				dataType : 'json',
 				url : '/myFirstApp/BusyoDisplayServlet',
 				data : requestQuery,
+				async : false,
 				success : function(json) {
 					// サーバーとの通信に成功した時の処理
 					// 確認のために返却値を出力
@@ -16,9 +18,10 @@ var display = function() {
 						var display = json[i];
 						tableElemnt += '<tr> <td>'
 								+ (i + 1)
-								+ '</td><td>'
+								+ '</td><td id="department'+(i + 1)+'">'
 								+ display.departmentName
-								+ '</td><td><button id="edit">編集</button></td><td><button id="delete">削除</button></td></tr>';
+								+ '</td><td><button id="edit'+(i + 1)+'" value="'+display.departmentName+'">編集</button></td><td><button id="delite'+(i + 1)+'" value="'+display.departmentName+'">削除</button></td></tr>';
+						count++;
 					}
 					// HTMLに挿入
 					$('#display').append(tableElemnt);
@@ -45,6 +48,7 @@ var create = function(){
 	dataType:'json',
 	url : '/myFirstApp/BusyoDisplayServlet',
 	data : requestQuery,
+	async : false,
 	success : function(json) {
 	// サーバーとの通信に成功した時の処理
 	// 確認のために返却値を出力
@@ -61,27 +65,57 @@ var create = function(){
 	});
 
 }
-var edit = function(){
+var update = function(){
 	// 部署名
 	var originName = $('#originName').val();
 	var updateName = $('#updateName').val();
-	//ここから
 	var requestQuery = {
-			creId : newDepartId,
-			creDp : newDepartmentName,
+			originDpName : originName,
+			updateDpName : updateName,
 			};
 	console.log('requestQuery',requestQuery);
 	// サーバーにデータを送信する。
 	$.ajax({
 	type : 'POST',
 	dataType:'json',
-	url : '/myFirstApp/BusyoDisplayServlet',
+	url : '/myFirstApp/DpUpdateServlet',
 	data : requestQuery,
+	async : false,
 	success : function(json) {
 	// サーバーとの通信に成功した時の処理
 	// 確認のために返却値を出力
 	console.log('返却値', json);
-	// 登録完了のアラート
+	$('#display').empty();
+	$('#editBox').empty();
+	display();
+	},
+	error:function(XMLHttpRequest, textStatus, errorThrown){
+	// サーバーとの通信に失敗した時の処理
+	alert('データの通信に失敗しました');
+	console.log(errorThrown)
+	}
+	});
+}
+var deleteDp = function(){
+	// 部署名
+	var c =$(this).attr("id");
+	console.log($(this).attr("id"));
+	var delName = $('#'+c+'').val();
+	var requestQuery = {
+			delName : delName,
+			};
+	console.log('requestQuery',requestQuery);
+	// サーバーにデータを送信する。
+	$.ajax({
+	type : 'POST',
+	dataType:'json',
+	url : '/myFirstApp/DpDeleteServlet',
+	data : requestQuery,
+	async : false,
+	success : function(json) {
+	// サーバーとの通信に成功した時の処理
+	// 確認のために返却値を出力
+	console.log('返却値', json);
 	$('#display').empty();
 	display();
 	},
@@ -92,7 +126,22 @@ var edit = function(){
 	}
 	});
 }
+var editArea = function(){
+	$('#editBox').empty();
+	var a =$(this).attr("id");
+	console.log($(this).attr("id"));
+	var b =$('#'+a+'').val();
+	var editBox='<input type="text"value="'+b+'" id="originName"></input><input type="text"placeholder="変更後" id="updateName"></input>'
+				+'<button id="editConfirm">編集確定</button>';
+	$('#editBox').append(editBox);
+}
 $(document).ready(function() {
 	display();
 	$('#create').click(create);
+	for(var i =1; i<=count;i++){
+		$('#edit'+i+'').click(editArea);
+		$('#delete'+i+'').click(deleteDp);
+	}
+	$('#editConfirm').click(update);
+
 });

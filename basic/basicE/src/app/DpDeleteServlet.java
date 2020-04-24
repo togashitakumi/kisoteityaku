@@ -15,16 +15,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Servlet implementation class DpUpdateServlet
+ * Servlet implementation class DpDeleteServlet
  */
-@WebServlet("/DpUpdateServlet")
-public class DpUpdateServlet extends HttpServlet {
+@WebServlet("/DpDeleteServlet")
+public class DpDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DpUpdateServlet() {
+    public DpDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,7 +34,8 @@ public class DpUpdateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+
 	}
 
 	/**
@@ -42,24 +43,24 @@ public class DpUpdateServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String  updateDpName= request.getParameter("updateDpName");
-		String  originDpName= request.getParameter("originDpName");
-		// JDBCドライバの準備
+		String  delName= request.getParameter("delName");
 		try {
+
 			// JDBCドライバのロード
 			Class.forName("oracle.jdbc.driver.OracleDriver");
+
 		} catch (ClassNotFoundException e) {
 			// ドライバが設定されていない場合はエラーになります
 			throw new RuntimeException(String.format("JDBCドライバのロードに失敗しました。詳細:[%s]", e.getMessage()), e);
 		}
+
 		// データベースにアクセスするために、データベースのURLとユーザ名とパスワードを指定
 		String url = "jdbc:oracle:thin:@localhost:1521:XE";
 		String user = "basic";
 		String pass = "basic";
+
 		// 実行するSQL文
-		String sql = "update BUSYO set BUSYO_NAME = '"+updateDpName+"' where 1=1 and BUSYO_NAME = '"+originDpName+"'";
-		// エラーが発生するかもしれない処理はtry-catchで囲みます
-		// この場合はDBサーバへの接続に失敗する可能性があります
+		String sql = "DELETE FROM BUSYO WHERE BUSYO_NAME = '"+delName+"'";//delName+"'";
 		try (
 				// データベースへ接続します
 				Connection con = DriverManager.getConnection(url, user, pass);
