@@ -40,8 +40,11 @@ public class SearchServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String empId = request.getParameter("searchId");
-		String empName = request.getParameter("serachName");
+		String empName = request.getParameter("searchName");
 		String dpId = request.getParameter("departmentId");
+		System.out.println(empId);
+		System.out.println(empName);
+		System.out.println(dpId);
 		try {
 
 			// JDBCドライバのロード
@@ -59,16 +62,16 @@ public class SearchServlet extends HttpServlet {
 
 		// 実行するSQL文
 		String sql = "select SHAIN_ID,SHAIN_NAME,NENNREI,SEIBETU,SYASHIN_ID,ZYUUSYO,BUSYO_ID from SYAIN_ZYOUHOU where 1=1";
-		if(empId != null){
-		     sql += " and SYAIN_ID = '"+empId+"'";
+		if(empId != null&& empId.length() != 0){
+		     sql += " and SHAIN_ID = '"+empId+"'";
 		}
-		if(empName != null){
+		if(empName != null&& empName.length() != 0){
 			sql +=" and SHAIN_NAME like '%"+empName+"%'";
 		}
-		if(dpId != null){
+		if(dpId != null&& dpId.length() != 0){
 			sql += " and BUSYO_ID ='"+dpId+"'";
 		}
-
+		System.out.println(sql);
 
 		// 趣味リスト（Display型のリスト）
 		List<Display> searchList = new ArrayList<>();

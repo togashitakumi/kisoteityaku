@@ -180,7 +180,8 @@ var pull = function(){
 					// 確認のために返却値を出力
 					console.log('返却値', json);
 					// 取得したデータを画面に表示する
-					var tableElemnt = '<p>検索フォーム</p><form name="form"><select name="department">';
+					var tableElemnt = '<p>検索フォーム</p><form name="form"><select name="department">'
+						+'<option value="">なし</option>';
 					for (var i = 0; i < json.length; i++) {
 						var dpDisplay = json[i];
 							tableElemnt += '<option id = "search'+(i + 1)+'" value="'+dpDisplay.departmentId+'">'+dpDisplay.departmentName+'</option>';
@@ -204,10 +205,11 @@ var pull = function(){
 }
 var search = function() {
 	// サーバーからデータを取得する
-	display();
+	$('#display').empty();
 	var getDepartmentId = document.form.department;
 	var num = getDepartmentId.selectedIndex;
 	var departmentId = getDepartmentId.options[num].value;
+	console.log(departmentId);
 	var requestQuery = {
 			departmentId : departmentId,
 			searchId : $('#searchId').val(),
@@ -220,6 +222,10 @@ var search = function() {
 				data : requestQuery,
 				async : false,
 				success : function(json) {
+					if(json.length == 0){
+						var zero = "検索結果がありません。";
+						$('#zero').html(zero);
+					}else{
 					// サーバーとの通信に成功した時の処理
 					// 確認のために返却値を出力
 					console.log('返却値', json);
@@ -237,6 +243,7 @@ var search = function() {
 					}
 					// HTMLに挿入
 					$('#display').append(tableElemnt);
+					}
 				},
 				error : function(XMLHttpRequest, textStatus, errorThrown) {
 					// サーバーとの通信に失敗した時の処理
