@@ -142,7 +142,7 @@ $(document).ready(function() {
 	$('#create').click(create);
 	for(var i =1; i<=count;i++){
 		$('#edit'+i+'').click(editArea);
-		$('#delete'+i+'').click(deleteDp);
+		$('#delete'+i+'').click(deleteEp);
 	}
 
 

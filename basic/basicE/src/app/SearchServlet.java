@@ -50,8 +50,13 @@ public class SearchServlet extends HttpServlet {
 //
 //		// 実行するSQL文
 //		if(empName == )
-//		String sql = "select SY.SYAINID,HO.HOBBY_ID,CA.CATEGORY_ID,CA.CATEGORY_NAME,HO.HOBBY_NAME from MS_SYAIN SY,MS_SYAIN_HOBBY SH,MS_HOBBY HO,MS_CATEGORY CA where 1=1 and SY.SYAINID = SH.SYAINID and SH.HOBBY_ID = HO.HOBBY_ID and HO.CATEGORY_ID = CA.CATEGORY_ID and SY.SYAINID = '"
-//				+ syainId + "'";
+		String sql = "select SY.SYAINID,HO.HOBBY_ID,CA.CATEGORY_ID,CA.CATEGORY_NAME,HO.HOBBY_NAME from MS_SYAIN SY,MS_SYAIN_HOBBY SH,MS_HOBBY HO,MS_CATEGORY CA where 1=1";
+		if(){
+		sql 		+= " and SY.SYAINID = SH.SYAINID"
+				+ " and SH.HOBBY_ID = HO.HOBBY_ID"
+				+ " and HO.CATEGORY_ID = CA.CATEGORY_ID and SY.SYAINID = '"
+				+ syainId + "'";
+		}
 //
 //		// 趣味リスト（Hobby型のリスト）
 //		List<Display> searchList = new ArrayList<>();

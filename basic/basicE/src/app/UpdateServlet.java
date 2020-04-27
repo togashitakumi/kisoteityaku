@@ -46,7 +46,6 @@ public class UpdateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String updateId = request.getParameter("updateId");
 		String updateName = request.getParameter("updateName");
 		String updateAge = request.getParameter("updateAge");
 		String updateSex = request.getParameter("updateSex");
@@ -69,7 +68,8 @@ public class UpdateServlet extends HttpServlet {
 		// 実行するSQL文
 		String sql = "update SYAIN_ZYOUHOU "
 				+ "set SHAIN_NAME ='"+updateName+"',NENNREI='"+updateAge+"',SEIBETU='"+updateSex+"',SYASHIN_ID='"+updateImgId+"',ZYUUSYO='"+updateAdress+"',BUSYO_ID='"+upateDpId+"' " + "where 1=1 "
-				+ "and BUSYO_NAME = '"+originName+"'";
+				+ "and SHAIN_NAME = '"+originName+"'";
+		System.out.println(sql);
 		// エラーが発生するかもしれない処理はtry-catchで囲みます
 		// この場合はDBサーバへの接続に失敗する可能性があります
 		try (
