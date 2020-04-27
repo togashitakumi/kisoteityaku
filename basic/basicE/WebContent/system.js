@@ -121,12 +121,18 @@ var editArea = function(){
 	var a =$(this).attr("id");
 	console.log($(this).attr("id"));
 	eb =$('#'+a+'').val();
-	//kokokara
-	var editBox='<p>'+b+'</p><input type="text"placeholder="変更後" id="updateName"></input>'
+	var editBox='<p>'+eb+'の編集</p><input type="text"placeholder="変更後" id="updateName"></input>'
+				+'</p><input type="text"placeholder="名前" id="updateName"></input>'
+				+'</p><input type="text"placeholder="年齢" id="updatAge"></input>'
+				+'</p><input type="text"placeholder="性別" id="updateSex"></input>'
+				+'</p><input type="text"placeholder="写真ID" id="updateImgId"></input>'
+				+'</p><input type="text"placeholder="住所" id="updateAdress"></input>'
+				+'</p><input type="text"placeholder="部署ID" id="updateDpId"></input>'
 				+'<button id="editConfirm">編集確定</button>';
 	$('#editBox').append(editBox);
 	$('#editConfirm').click(update);
 }
+
 $(document).ready(function() {
 	display();
 	$('#create').click(create);
