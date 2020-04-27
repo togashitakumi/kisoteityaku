@@ -1,5 +1,6 @@
 /* 社員情報を表示するファンクション */
 var count = 0;
+var seCount=0;
 var ed;
 var display = function() {
 	// サーバーからデータを取得する
@@ -179,16 +180,19 @@ var pull = function(){
 					// 確認のために返却値を出力
 					console.log('返却値', json);
 					// 取得したデータを画面に表示する
-					var tableElemnt = '<form name="department"><select name="department">';
+					var tableElemnt = '<p>検索フォーム</p><form name="form"><select name="department">';
 					for (var i = 0; i < json.length; i++) {
 						var dpDisplay = json[i];
-							tableElemnt += '<option value="'+dpDisplay.departmentId+'">'+dpDisplay.departmentName+'</option>';
+							tableElemnt += '<option id = "search'+(i + 1)+'" value="'+dpDisplay.departmentId+'">'+dpDisplay.departmentName+'</option>';
+							seCount++;
 					}
 					tableElemnt += '</select></form>'
-						+'<input type="text"placeholder="EMP????" id="newId"></input>'
-						+'<input type="text"placeholder="名前" id="newName"></input>';
+						+'<input type="text"placeholder="EMP????" id="searchId"></input>'
+						+'<input type="text"placeholder="名前" id="searchName"></input>'
+						+'<button id="searchServlet">検索</button>';
 					// HTMLに挿入
 					$('#searchBox').append(tableElemnt);
+					$('#searchServlet').click(search);
 				},
 				error : function(XMLHttpRequest, textStatus, errorThrown) {
 					// サーバーとの通信に失敗した時の処理
@@ -196,6 +200,49 @@ var pull = function(){
 					console.log(errorThrown)
 				}
 
+			});
+}
+var search = function() {
+	// サーバーからデータを取得する
+	display();
+	var getDepartmentName = document.form.department;
+	var num = getDepartmentName.selectedIndex;
+	var departmentName = getDepartmentName.options[num].value;
+	var requestQuery = {
+			departmentName : departmentName,
+			searchId : $('#searchId').val(),
+			searchName : $('#searchName').val()
+	};
+	$.ajax({
+				type : 'GET',
+				dataType : 'json',
+				url : '/myFirstApp/SearchServlet',
+				data : requestQuery,
+				async : false,
+				success : function(json) {
+					// サーバーとの通信に成功した時の処理
+					// 確認のために返却値を出力
+					console.log('返却値', json);
+					// 取得したデータを画面に表示する
+					var tableElemnt = '';
+					for (var i = 0; i < json.length; i++) {
+						var display = json[i];
+						tableElemnt += '<tr> <td>'
+								+ display.syainId
+								+ '</td><td>'
+								+ display.syainName
+								+ '</td><td><button id="edit'+(i + 1)+'" value="'+display.syainName+'">編集</button></td>'
+								+'<td><button id="delete'+(i + 1)+'" value="'+display.syainName+'">削除</button></td></tr>';
+						count++;
+					}
+					// HTMLに挿入
+					$('#display').append(tableElemnt);
+				},
+				error : function(XMLHttpRequest, textStatus, errorThrown) {
+					// サーバーとの通信に失敗した時の処理
+					alert('データの通信に失敗しました');
+					console.log(errorThrown)
+				}
 			});
 }
 $(document).ready(function() {
