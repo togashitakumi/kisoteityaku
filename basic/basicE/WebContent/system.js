@@ -205,11 +205,11 @@ var pull = function(){
 var search = function() {
 	// サーバーからデータを取得する
 	display();
-	var getDepartmentName = document.form.department;
-	var num = getDepartmentName.selectedIndex;
-	var departmentName = getDepartmentName.options[num].value;
+	var getDepartmentId = document.form.department;
+	var num = getDepartmentId.selectedIndex;
+	var departmentId = getDepartmentId.options[num].value;
 	var requestQuery = {
-			departmentName : departmentName,
+			departmentId : departmentId,
 			searchId : $('#searchId').val(),
 			searchName : $('#searchName').val()
 	};
