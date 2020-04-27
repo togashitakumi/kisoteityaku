@@ -20,7 +20,7 @@ var display = function() {
 								+ (i + 1)
 								+ '</td><td id="department'+(i + 1)+'">'
 								+ display.departmentName
-								+ '</td><td><button id="edit'+(i + 1)+'" value="'+display.departmentName+'">編集</button></td><td><button id="delete'+(i + 1)+'" value="'+display.departmentName+'">削除</button></td></tr>';
+								+ '</td><td><button id="edit'+(i + 1)+'" value="'+display.departmentId+'">編集</button></td><td><button id="delete'+(i + 1)+'" value="'+display.departmentId+'">削除</button></td></tr>';
 						count++;
 					}
 					// HTMLに挿入
@@ -67,10 +67,10 @@ var create = function(){
 }
 var update = function(){
 	// 部署名
-	var originName = $('#originName').val();
+	var originId = $('#originName').val();
 	var updateName = $('#updateName').val();
 	var requestQuery = {
-			originDpName : originName,
+			originDpId : originId,
 			updateDpName : updateName,
 			};
 	console.log('requestQuery',requestQuery);
@@ -100,9 +100,9 @@ var deleteDp = function(){
 	// 部署名
 	var c =$(this).attr("id");
 	console.log($(this).attr("id"));
-	var delName = $('#'+c+'').val();
+	var delId = $('#'+c+'').val();
 	var requestQuery = {
-			delName : delName,
+			delId : delId,
 			};
 	console.log('requestQuery',requestQuery);
 	// サーバーにデータを送信する。
@@ -131,6 +131,8 @@ var editArea = function(){
 	var a =$(this).attr("id");
 	console.log($(this).attr("id"));
 	var b =$('#'+a+'').val();
+	var editBox='';
+
 	var editBox='<input type="text"value="'+b+'" id="originName"></input><input type="text"placeholder="変更後" id="updateName"></input>'
 				+'<button id="editConfirm">編集確定</button>';
 	$('#editBox').append(editBox);
@@ -142,7 +144,7 @@ $(document).ready(function() {
 	$('#create').click(create);
 	for(var i =1; i<=count;i++){
 		$('#edit'+i+'').click(editArea);
-		$('#delete'+i+'').click(deleteEp);
+		$('#delete'+i+'').click(deleteDp);
 	}
 
 

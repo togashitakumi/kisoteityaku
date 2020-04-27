@@ -39,7 +39,6 @@ var display = function() {
 			});
 }
 var create = function(){
-	var newId = $('#newId').val();
 	var newName = $('#newName').val();
 	var newAge = $('#newAge').val();
 	var newSex = $('#newSex').val();
@@ -47,7 +46,6 @@ var create = function(){
 	var newAdress = $('#newAdress').val();
 	var newDpId = $('#newDpId').val();
 	var requestQuery = {
-			creId : newId,
 			creName : newName,
 			creAge : newAge,
 			creSex : newSex,
@@ -90,7 +88,7 @@ var update = function(){
 	var updateDpId = $('#updateDpId').val();
 	var updateoriginName = ed;
 	var requestQuery = {
-			originName : originName,
+			originName : updateoriginName,
 			updateName : updateName,
 			updateAge  : updateAge,
 			updateSex : updateSex,
@@ -125,8 +123,8 @@ var editArea = function(){
 	$('#editBox').empty();
 	var a =$(this).attr("id");
 	console.log($(this).attr("id"));
-	eb =$('#'+a+'').val();
-	var editBox='<p>'+eb+'の編集</p><input type="text"placeholder="変更後" id="updateName"></input>'
+	ed =$('#'+a+'').val();
+	var editBox='<p>'+ed+'の編集</p>'
 				+'</p><input type="text"placeholder="名前" id="updateName"></input>'
 				+'</p><input type="text"placeholder="年齢" id="updatAge"></input>'
 				+'</p><input type="text"placeholder="性別" id="updateSex"></input>'
