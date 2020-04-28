@@ -139,10 +139,12 @@ var editArea = function(){
 	var editBox='';
 
 	var editBox='<p id="originId">'+b+'</p><input type="text"placeholder="変更後" id="updateName"></input>'
-				+'<button id="editConfirm">編集確定</button>';
+				+'<button id="editConfirm">編集確定</button><a href=""edit.html" id="editP">移動</a>';
 	$('#editBox').append(editBox);
 	$('#editConfirm').click(update);
+	$('#editP').attr('href', 'edit.html?q=' + b);
 }
+
 $(document).ready(function() {
 	display();
 	//$('#display').ready('load',display);

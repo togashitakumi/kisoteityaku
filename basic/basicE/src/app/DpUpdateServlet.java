@@ -44,6 +44,17 @@ public class DpUpdateServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String  updateDpName= request.getParameter("updateDpName");
 		String  originDpId= request.getParameter("originDpId");
+		PrintWriter pw = response.getWriter();
+		LoginResponse loginResponse = new LoginResponse();
+		if(updateDpName == null){
+			loginResponse.setResult("ng");
+			loginResponse.setErrorCd(ErrorConst.ERR_VALIDATION);
+			loginResponse.setErrorCd("ユーザー名が入力されていません");
+			// レスポンスに書き込み
+			pw.append(new ObjectMapper().writeValueAsString(loginResponse));
+			// 処理を中断
+			return;
+			}
 		// JDBCドライバの準備
 		try {
 			// JDBCドライバのロード
@@ -71,7 +82,6 @@ public class DpUpdateServlet extends HttpServlet {
 			throw new RuntimeException(String.format("検索処理の実施中にエラーが発生しました。詳細:[%s]", e.getMessage()), e);
 		}
 		// アクセスした人に応答するためのJSONを用意する
-		PrintWriter pw = response.getWriter();
 		// JSONで出力する
 		pw.append(new ObjectMapper().writeValueAsString("ok"));
 
