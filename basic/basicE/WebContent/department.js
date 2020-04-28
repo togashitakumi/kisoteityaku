@@ -1,4 +1,5 @@
 var count = 0;
+var b;
 var display = function() {
 	// サーバーからデータを取得する
 	var requestQuery = {q : 1};
@@ -67,7 +68,7 @@ var create = function(){
 }
 var update = function(){
 	// 部署名
-	var originId = $('#originName').val();
+	var originId = b;
 	var updateName = $('#updateName').val();
 	var requestQuery = {
 			originDpId : originId,
@@ -130,10 +131,10 @@ var editArea = function(){
 	$('#editBox').empty();
 	var a =$(this).attr("id");
 	console.log($(this).attr("id"));
-	var b =$('#'+a+'').val();
+	b =$('#'+a+'').val();
 	var editBox='';
 
-	var editBox='<input type="text"value="'+b+'" id="originName"></input><input type="text"placeholder="変更後" id="updateName"></input>'
+	var editBox='<p id="originId">'+b+'</p><input type="text"placeholder="変更後" id="updateName"></input>'
 				+'<button id="editConfirm">編集確定</button>';
 	$('#editBox').append(editBox);
 	$('#editConfirm').click(update);

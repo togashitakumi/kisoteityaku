@@ -43,7 +43,7 @@ public class DpDeleteServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String  delName= request.getParameter("delName");
+		String  delId= request.getParameter("delId");
 		try {
 
 			// JDBCドライバのロード
@@ -60,7 +60,7 @@ public class DpDeleteServlet extends HttpServlet {
 		String pass = "basic";
 
 		// 実行するSQL文
-		String sql = "DELETE FROM BUSYO WHERE BUSYO_NAME = '"+delName+"'";//delName+"'";
+		String sql = "DELETE FROM BUSYO WHERE BUSYO_Id = '"+delId+"'";//delId+"'";
 		try (
 				// データベースへ接続します
 				Connection con = DriverManager.getConnection(url, user, pass);
