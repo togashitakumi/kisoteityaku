@@ -33,6 +33,10 @@ var display = function() {
 					console.log(errorThrown)
 				}
 			});
+	for(var i =1; i<=count;i++){
+		$('#edit'+i+'').click(editArea);
+		$('#delete'+i+'').click(deleteDp);
+	}
 }
 var create = function(){
 	// 部署名
@@ -143,10 +147,8 @@ $(document).ready(function() {
 	display();
 	//$('#display').ready('load',display);
 	$('#create').click(create);
-	for(var i =1; i<=count;i++){
-		$('#edit'+i+'').click(editArea);
-		$('#delete'+i+'').click(deleteDp);
-	}
+
+
 
 
 });

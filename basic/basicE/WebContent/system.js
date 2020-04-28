@@ -37,12 +37,17 @@ var display = function() {
 					console.log(errorThrown)
 				}
 			});
+	for(var i =1; i<=count;i++){
+		$('#edit'+i).click(editArea);
+		$('#delete'+i).click(deleteEp);
+	}
+	$('#search').click(pull);
 }
 var create = function(){
 	var newId = $('#newId').val();
 	var newName = $('#newName').val();
 	var newAge = $('#newAge').val();
-	var newSex = $('#newSex').val();
+	var newSex = $('input[name="sex"]:checked').val();
 	var newImgId = $('#newImgId').val();
 	var newAdress = $('#newAdress').val();
 	var newDpId = $('#newDpId').val();
@@ -87,7 +92,7 @@ var update = function(){
 	var updateId = $('#updateId').val();
 	var updateName = $('#updateName').val();
 	var updateAge = $('#updateAge').val();
-	var updateSex = $('#updateSex').val();
+	var updateSex = $('input[name="upSex"]:checked').val();
 	var updateImgId = $('#updateImgId').val();
 	var updateAdress = $('#updateAdress').val();
 	var updateoriginId = ed;
@@ -131,7 +136,7 @@ var editArea = function(){
 	var editBox='<p>'+ed+'の編集</p>'
 	+'</p><input type="text"placeholder="名前" id="updateName"></input>'
 	+'</p><input type="text"placeholder="年齢" id="updatAge"></input>'
-	+'</p><input type="text"placeholder="性別" id="updateSex"></input>'
+	+'<p><label><input type="radio"name="sex" value="男">男</label><label><input type="radio"name="sex" value="女">女</label></p>'
 	+'</p><input type="text"placeholder="写真ID" id="updateImgId"></input>'
 	+'</p><input type="text"placeholder="住所" id="updateAdress"></input>'
 	+'<form name="upForm"><select name="updateDp">';
@@ -285,9 +290,5 @@ var search = function() {
 $(document).ready(function() {
 	display();
 	$('#create').click(create);
-	for(var i =1; i<=count;i++){
-		$('#edit'+i).click(editArea);
-		$('#delete'+i).click(deleteEp);
-	}
-	$('#search').click(pull);
+
 });
