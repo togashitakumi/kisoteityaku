@@ -46,7 +46,7 @@ public class DpUpdateServlet extends HttpServlet {
 		String  originDpId= request.getParameter("originDpId");
 		PrintWriter pw = response.getWriter();
 		LoginResponse loginResponse = new LoginResponse();
-		if(updateDpName == null){
+		if(updateDpName == null|| updateDpName.length() == 0){
 			loginResponse.setResult("ng");
 			loginResponse.setErrorCd(ErrorConst.ERR_VALIDATION);
 			loginResponse.setErrorCd("ユーザー名が入力されていません");
