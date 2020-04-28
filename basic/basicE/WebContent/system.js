@@ -24,8 +24,8 @@ var display = function() {
 								+ display.syainId
 								+ '</td><td>'
 								+ display.syainName
-								+ '</td><td><button id="edit'+(i + 1)+'" value="'+display.syainName+'">編集</button></td>'
-								+'<td><button id="delete'+(i + 1)+'" value="'+display.syainName+'">削除</button></td></tr>';
+								+ '</td><td><button id="edit'+(i + 1)+'" value="'+display.syainId+'">編集</button></td>'
+								+'<td><button id="delete'+(i + 1)+'" value="'+display.syainId+'">削除</button></td></tr>';
 						count++;
 					}
 					// HTMLに挿入
@@ -39,6 +39,7 @@ var display = function() {
 			});
 }
 var create = function(){
+	var newId = $('#newId').val();
 	var newName = $('#newName').val();
 	var newAge = $('#newAge').val();
 	var newSex = $('#newSex').val();
@@ -46,6 +47,7 @@ var create = function(){
 	var newAdress = $('#newAdress').val();
 	var newDpId = $('#newDpId').val();
 	var requestQuery = {
+			creId : newId,
 			creName : newName,
 			creAge : newAge,
 			creSex : newSex,
@@ -79,16 +81,18 @@ var create = function(){
 }
 
 var update = function(){
+	var getDpId = document.upForm.updateDp;
+	var num = getDpId.selectedIndex;
+	var updateDpId = getDpId.options[num].value;
 	var updateId = $('#updateId').val();
 	var updateName = $('#updateName').val();
 	var updateAge = $('#updateAge').val();
 	var updateSex = $('#updateSex').val();
 	var updateImgId = $('#updateImgId').val();
 	var updateAdress = $('#updateAdress').val();
-	var updateDpId = $('#updateDpId').val();
-	var updateoriginName = ed;
+	var updateoriginId = ed;
 	var requestQuery = {
-			originName : updateoriginName,
+			originId : updateoriginId,
 			updateName : updateName,
 			updateAge  : updateAge,
 			updateSex : updateSex,
@@ -125,23 +129,51 @@ var editArea = function(){
 	console.log($(this).attr("id"));
 	ed =$('#'+a+'').val();
 	var editBox='<p>'+ed+'の編集</p>'
-				+'</p><input type="text"placeholder="名前" id="updateName"></input>'
-				+'</p><input type="text"placeholder="年齢" id="updatAge"></input>'
-				+'</p><input type="text"placeholder="性別" id="updateSex"></input>'
-				+'</p><input type="text"placeholder="写真ID" id="updateImgId"></input>'
-				+'</p><input type="text"placeholder="住所" id="updateAdress"></input>'
-				+'</p><input type="text"placeholder="部署ID" id="updateDpId"></input>'
-				+'<button id="editConfirm">編集確定</button>';
-	$('#editBox').append(editBox);
-	$('#editConfirm').click(update);
+	+'</p><input type="text"placeholder="名前" id="updateName"></input>'
+	+'</p><input type="text"placeholder="年齢" id="updatAge"></input>'
+	+'</p><input type="text"placeholder="性別" id="updateSex"></input>'
+	+'</p><input type="text"placeholder="写真ID" id="updateImgId"></input>'
+	+'</p><input type="text"placeholder="住所" id="updateAdress"></input>'
+	+'<form name="upForm"><select name="updateDp">';
+	var requestQuery = {q : 1};
+	$.ajax({
+				type : 'GET',
+				dataType : 'json',
+				url : '/myFirstApp/BusyoDisplayServlet',
+				data : requestQuery,
+				async : false,
+				success : function(json) {
+					// サーバーとの通信に成功した時の処理
+					// 確認のために返却値を出力
+					console.log('返却値', json);
+					// 取得したデータを画面に表示する
+
+					for (var i = 0; i < json.length; i++) {
+						var dpDisplay = json[i];
+						editBox += '<option id = "editpull'+(i + 1)+'" value="'+dpDisplay.departmentId+'">'+dpDisplay.departmentName+'</option>';
+							seCount++;
+					}
+					editBox+= '</select></form>'
+						+'<button id="editConfirm">編集確定</button>';
+					// HTMLに挿入
+					$('#editBox').append(editBox);
+					$('#editConfirm').click(update);
+				},
+				error : function(XMLHttpRequest, textStatus, errorThrown) {
+					// サーバーとの通信に失敗した時の処理
+					alert('データの通信に失敗しました');
+					console.log(errorThrown)
+				}
+
+			});
 }
 var deleteEp = function(){
 	// 部署名
 	var c =$(this).attr("id");
 	console.log($(this).attr("id"));
-	var delName = $('#'+c+'').val();
+	var delId = $('#'+c+'').val();
 	var requestQuery = {
-			delName : delName,
+			delId : delId,
 			};
 	console.log('requestQuery',requestQuery);
 	// サーバーにデータを送信する。

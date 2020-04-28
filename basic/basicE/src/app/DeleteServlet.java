@@ -42,7 +42,7 @@ public class DeleteServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String  delName= request.getParameter("delName");
+		String  delId= request.getParameter("delId");
 
 
 		try {
@@ -61,7 +61,7 @@ public class DeleteServlet extends HttpServlet {
 		String pass = "basic";
 
 		// 実行するSQL文
-		String sql = "DELETE FROM SYAIN_ZYOUHOU WHERE SHAIN_NAME = '"+delName+"'";
+		String sql = "DELETE FROM SYAIN_ZYOUHOU WHERE SHAIN_Id = '"+delId+"'";
 		try (
 				// データベースへ接続します
 				Connection con = DriverManager.getConnection(url, user, pass);

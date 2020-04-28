@@ -52,7 +52,7 @@ public class UpdateServlet extends HttpServlet {
 		String updateImgId = request.getParameter("updateImgId");
 		String updateAdress = request.getParameter("updateAdress");
 		String upateDpId = request.getParameter("updateDpId");
-		String originName = request.getParameter("originName");
+		String originId = request.getParameter("originId");
 		// JDBCドライバの準備
 		try {
 			// JDBCドライバのロード
@@ -68,7 +68,7 @@ public class UpdateServlet extends HttpServlet {
 		// 実行するSQL文
 		String sql = "update SYAIN_ZYOUHOU "
 				+ "set SHAIN_NAME ='"+updateName+"',NENNREI='"+updateAge+"',SEIBETU='"+updateSex+"',SYASHIN_ID='"+updateImgId+"',ZYUUSYO='"+updateAdress+"',BUSYO_ID='"+upateDpId+"' " + "where 1=1 "
-				+ "and SHAIN_NAME = '"+originName+"'";
+				+ "and SHAIN_ID = '"+originId+"'";
 		System.out.println(sql);
 		// エラーが発生するかもしれない処理はtry-catchで囲みます
 		// この場合はDBサーバへの接続に失敗する可能性があります
