@@ -377,8 +377,12 @@ var session = function() {
 		}
 	});
 }
+var header = function(){
+
+}
 $(document).ready(function() {
 	session();
+	header();
 	display();
 	$('#create').click(create);
 

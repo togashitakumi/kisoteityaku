@@ -43,10 +43,10 @@ public class ExpenseServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String status = (String)session.getAttribute("userEmId");
 		String role = (String)session.getAttribute("userRole");
-//		if(status == null) {
-//			pw.append(new ObjectMapper().writeValueAsString("No"));
-//			return;
-//		}
+		if(status == null) {
+			pw.append(new ObjectMapper().writeValueAsString("No"));
+			return;
+		}
 
 		try {
 
@@ -64,13 +64,24 @@ public class ExpenseServlet extends HttpServlet {
 		String pass = "basic";
 
 		// 実行するSQL文
-		String sql = "select \n" +
+		//メンバーかどうかで判定
+		String sql;
+		if(role == "マネージャー"){
+		sql = "select \n" +
 				"* \n" +
 				"from \n" +
 				"EXPENSES \n" +
 				"order by \n" +
 				"SHINSEI_ID ";
-
+		}else{
+			sql = "select \n" +
+					"* \n" +
+					"from \n" +
+					"EXPENSES \n" +
+					"where 1=1 \n" +
+					"and SHAIN_ID ='"+status+"'" ;
+		}
+		System.out.println(sql);
 		// 趣味リスト（Hobby型のリスト）
 		List<Expense> expenselist = new ArrayList<>();
 
