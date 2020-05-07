@@ -26,6 +26,7 @@ var expense = function() {
 							console.log('返却値', json);
 							// 取得したデータを画面に表示する
 							var tableElemnt = '';
+							var update;
 							for (var i = 0; i < json.length; i++) {
 								var expense = json[i];
 								var a;
@@ -36,6 +37,19 @@ var expense = function() {
 								}else{
 									a = "申請中";
 								}
+								if(expense.updateDay === null){
+									update = "なし";
+									tableElemnt += '<tr> <td>' + expense.appliId
+									+ '</td><td>' + expense.appliDay
+									+ '</td><td>' + update
+									+ '</td><td>' + expense.appliName
+									+ '</td><td>' + expense.title
+									+ '</td><td>' + expense.payment
+									+ '</td><td>' + a
+									+ '</td><td><button id="detail' + (i + 1)
+									+ '" value="' + expense.appliId
+									+ '">詳細</button></td></tr>';
+								}else{
 								tableElemnt += '<tr> <td>' + expense.appliId
 										+ '</td><td>' + expense.appliDay
 										+ '</td><td>' + expense.updateDay
@@ -46,6 +60,7 @@ var expense = function() {
 										+ '</td><td><button id="detail' + (i + 1)
 										+ '" value="' + expense.appliId
 										+ '">詳細</button></td></tr>';
+								}
 								count++;
 							}
 							// HTMLに挿入
