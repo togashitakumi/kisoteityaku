@@ -19,16 +19,16 @@ import javax.servlet.http.HttpSession;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Servlet implementation class ExpenseServlet
+ * Servlet implementation class ExpenseDetailServlet
  */
-@WebServlet("/ExpenseServlet")
-public class ExpenseServlet extends HttpServlet {
+@WebServlet("/ExpenseDetailServlet")
+public class ExpenseDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ExpenseServlet() {
+    public ExpenseDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,7 +38,7 @@ public class ExpenseServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String q = request.getParameter("q");
+		String appliId = request.getParameter("appliId");
 		PrintWriter pw = response.getWriter();
 		HttpSession session = request.getSession();
 		String status = (String)session.getAttribute("userEmId");
@@ -65,22 +65,13 @@ public class ExpenseServlet extends HttpServlet {
 
 		// 実行するSQL文
 		//メンバーかどうかで判定
-		String sql;
-		if(role.equals("マネージャー") ){
-		sql = "select \n" +
-				"* \n" +
-				"from \n" +
-				"EXPENSES \n" +
-				"order by \n" +
-				"SHINSEI_ID ";
-		}else{
-			sql = "select \n" +
+		String sql = "select \n" +
 					"* \n" +
 					"from \n" +
 					"EXPENSES \n" +
 					"where 1=1 \n" +
-					"and SHAIN_ID ='"+status+"'" ;
-		}
+					"and SHINSEI_ID ='"+appliId+"'" ;
+
 		System.out.println(sql);
 		// 趣味リスト（Hobby型のリスト）
 		List<Expense> expenselist = new ArrayList<>();

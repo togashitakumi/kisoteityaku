@@ -64,7 +64,9 @@ var expense = function() {
 	}
 }
 var detail = function(){
-
+	var id =$(this).attr("id");
+	var detId = $('#'+id+'').val();
+	location.href = './expenseDetail.html?q=' + detId;
 }
 var session = function() {
 	var requestQuery = {
