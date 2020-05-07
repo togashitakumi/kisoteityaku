@@ -104,6 +104,8 @@ public class LoginServlet extends HttpServlet {
 				// ユーザー情報をセッションに保存
 				 HttpSession session = request.getSession();
 				 session.setAttribute("userEmId", rs1.getString("SHAIN_ID") );
+				 session.setAttribute("userRole", rs1.getString("ROLE") );
+				 String status = (String)session.getAttribute("SHAIN_ID");
 
 			}else{
 				responseData.put("result", "ng");
