@@ -1,5 +1,7 @@
 var count = 0;
 var b;
+var userEmId;
+var userRole;
 var display = function() {
 	// サーバーからデータを取得する
 	var requestQuery = {q : 1};
@@ -144,8 +146,44 @@ var editArea = function(){
 	$('#editConfirm').click(update);
 	$('#editP').attr('href', 'edit.html?q=' + b);
 }
-
+var session = function() {
+	var requestQuery = {
+		q : 1
+	};
+	$.ajax({
+		type : 'POST',
+		dataType : 'json',
+		url : '/myFirstApp/SessionServlet',
+		async : false,
+		data : requestQuery,
+		success : function(json) {
+			userEmId = json.userEmId;
+			userRole = json.userRole;
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			// サーバーとの通信に失敗した時の処理
+			alert('データの通信に失敗しました');
+			console.log(errorThrown)
+		}
+	});
+}
+var header = function() {
+	var a;
+	if (userRole === "マネージャー") {
+		a = '<a href="./syainzyouhou.html">社員一覧</a>'
+				+ '<a href="./department.html">部署一覧</a>'
+				+ '<a href="./Expense.html">経費一覧</a>'
+				+ '<a href="./Expense.html">経費管理</a>'
+	} else {
+		a = '<a href="./syainzyouhou.html">社員一覧</a>'
+				+ '<a href="./department.html">部署一覧</a>'
+				+ '<a href="./Expense.html">経費一覧</a>';
+	}
+	$('#header').append(a);
+}
 $(document).ready(function() {
+	session();
+	header();
 	display();
 	//$('#display').ready('load',display);
 	$('#create').click(create);

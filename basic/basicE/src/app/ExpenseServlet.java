@@ -107,11 +107,11 @@ public class ExpenseServlet extends HttpServlet {
 				expense.setAppliDay(rs1.getString("SHINSEIBI"));
 				expense.setAppliName(rs1.getString("SHINSEISHA"));
 				expense.setTitle(rs1.getString("TITLE"));
-				expense.setPayment(rs1.getString("SHIHARAISAKI"));
-				expense.setPayName(rs1.getString("KINGAKU"));
+				expense.setPayment(rs1.getString("KINGAKU"));
+				expense.setPayName(rs1.getString("SHIHARAISAKI"));
 				expense.setUpdateDay(rs1.getString("KOUSHINBI"));
 				expense.setChangerName(rs1.getString("KOUSINSHA"));
-				expense.setStatus(rs1.getString("STATUS"));
+				expense.setStatus(rs1.getInt("STATUS"));
 				expense.setReason(rs1.getString("RIYUU"));
 				expense.setEmpId(rs1.getString("SHAIN_ID"));
 

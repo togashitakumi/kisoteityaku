@@ -12,7 +12,7 @@ var expense = function() {
 			.ajax({
 				type : 'GET',
 				dataType : 'json',
-				url : '/myFirstApp/DisplayServlet',
+				url : '/myFirstApp/ExpenseServlet',
 				data : requestQuery,
 				async : false,
 				success : function(json) {
@@ -28,14 +28,23 @@ var expense = function() {
 							var tableElemnt = '';
 							for (var i = 0; i < json.length; i++) {
 								var expense = json[i];
+								var a;
+								if(expense.status=="1"){
+									a = "承認";
+								}else if(expense.status=="2"){
+									a = "却下";
+								}else{
+									a = "申請中";
+								}
 								tableElemnt += '<tr> <td>' + expense.appliId
 										+ '</td><td>' + expense.appliDay
 										+ '</td><td>' + expense.updateDay
 										+ '</td><td>' + expense.appliName
 										+ '</td><td>' + expense.title
-										+ '</td><td>' + expense.status
+										+ '</td><td>' + expense.payment
+										+ '</td><td>' + a
 										+ '</td><td><button id="detail' + (i + 1)
-										+ '" value="' + display.syainId
+										+ '" value="' + expense.appliId
 										+ '">詳細</button></td></tr>';
 								count++;
 							}
@@ -78,8 +87,23 @@ var session = function() {
 		}
 	});
 }
+var header = function() {
+	var a;
+	if (userRole === "マネージャー") {
+		a = '<a href="./syainzyouhou.html">社員一覧</a>'
+				+ '<a href="./department.html">部署一覧</a>'
+				+ '<a href="./Expense.html">経費一覧</a>'
+				+ '<a href="./Expense.html">経費管理</a>'
+	} else {
+		a = '<a href="./syainzyouhou.html">社員一覧</a>'
+				+ '<a href="./department.html">部署一覧</a>'
+				+ '<a href="./Expense.html">経費一覧</a>';
+	}
+	$('#header').append(a);
+}
 $(document).ready(function() {
 	session();
+	header();
 	expense();
 
 });

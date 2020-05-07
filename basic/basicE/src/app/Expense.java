@@ -9,7 +9,7 @@ public class Expense {
 	private String payment;
 	private String updateDay;
 	private String changerName;
-	private String status;
+	private int status;
 	private String reason;
 	private String empId;
 	public Expense() {
@@ -63,10 +63,10 @@ public class Expense {
 	public void setChangerName(String changerName) {
 		this.changerName = changerName;
 	}
-	public String getStatus() {
+	public int getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 	public String getReason() {
