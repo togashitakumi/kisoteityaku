@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -40,6 +41,14 @@ public class BusyoDisplayServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String q = request.getParameter("q");
+		PrintWriter pw = response.getWriter();
+		HttpSession session = request.getSession();
+		String status = (String)session.getAttribute("userEmId");
+		String role = (String)session.getAttribute("userRole");
+		if(status == null) {
+			pw.append(new ObjectMapper().writeValueAsString("No"));
+			return;
+		}
 		try {
 
 			// JDBCドライバのロード
@@ -90,7 +99,6 @@ public class BusyoDisplayServlet extends HttpServlet {
 		}
 
 		// アクセスした人に応答するためのJSONを用意する
-		PrintWriter pw = response.getWriter();
 		// JSONで出力する
 		pw.append(new ObjectMapper().writeValueAsString(departmentlist));
 	}

@@ -214,11 +214,33 @@ var header = function() {
 
 	$('#header').append(a);
 }
+var logout = function() {
+	var requestQuery = {
+		q : 1
+	};
+	$.ajax({
+		type : 'POST',
+		dataType : 'json',
+		url : '/myFirstApp/LogoutServlet',
+		async : false,
+		data : requestQuery,
+		success : function(json) {
+			console.log(json);
+			display();
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			// サーバーとの通信に失敗した時の処理
+			alert('データの通信に失敗しました');
+			console.log(errorThrown)
+		}
+	});
+}
 $(document).ready(function() {
 	session();
 	header();
 	display();
 	// $('#display').ready('load',display);
 	$('#create').click(create);
+	$('#logout').click(logout);
 
 });
