@@ -48,15 +48,7 @@ public class ExpenseDetailServlet extends HttpServlet {
 			return;
 		}
 
-		try {
-
-			// JDBCドライバのロード
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-
-		} catch (ClassNotFoundException e) {
-			// ドライバが設定されていない場合はエラーになります
-			throw new RuntimeException(String.format("JDBCドライバのロードに失敗しました。詳細:[%s]", e.getMessage()), e);
-		}
+		DataBase.driver();
 
 		// データベースにアクセスするために、データベースのURLとユーザ名とパスワードを指定
 		String url = "jdbc:oracle:thin:@localhost:1521:XE";
