@@ -1,0 +1,52 @@
+*{
+	margin:0;
+	padding:0;
+}
+header{
+	padding:10px;
+	display: flex;
+}
+header a{
+	flex:1;
+	display:block;
+	margin:0 20px;
+}
+h1{
+	margin:10px;
+}
+table{
+	margin:10px;
+	border:solid 1px;
+}
+
+thead th{
+	background-color:#5555ff;
+	border:solid 1px;
+	padding:5px;
+}
+td{
+	border:solid 1px;
+	padding:5px;
+}
+#create{
+	margin:10px;
+}
+/* NGなら赤くする */
+textarea:invalid {
+border : tomato 2px solid;
+}
+/* 操作中、入力値が正しい場合䛿、不正エラーを消す */
+textarea:valid + .error {
+display : none;
+}
+/* OKなら、そ䛾他䛾テキストボックス以外を緑にする */
+textarea:valid {
+border : seagreen 2px solid;
+}
+/* エラー䛾表示 */
+.error{
+color:white;
+background-color:tomato;
+}
+
+@CHARSET "UTF-8";

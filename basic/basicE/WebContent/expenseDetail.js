@@ -89,7 +89,7 @@ var expense = function() {
 							if (expense.status != "1" && expense.status != "2") {
 								divElement = '<button id = "approval">承認</button>'
 										+ '<button id = "rejection">却下</button>'
-										+ '<textarea id = "reason" placeholder="却下理由を記入"></textarea>'
+										+ '<textarea id = "reason" placeholder="却下理由を記入" required></textarea>'
 							} else if (expense.status == "2") {
 								divElement = '<p>却下理由</p>' + '<p>'
 										+ expense.reason + '</p>'
@@ -100,7 +100,7 @@ var expense = function() {
 										+ expense.reason + '</p>'
 							}
 						}
-						$('#approval').append(divElement);
+						$('#box').append(divElement);
 
 					}
 				},
@@ -141,6 +141,44 @@ var approval = function(){
 			alert('承認しました');
 			$('#expense').empty();
 			expense();
+
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			// サーバーとの通信に失敗した時の処理
+			alert('データの通信に失敗しました');
+			console.log(errorThrown)
+		}
+	});
+}
+var rejection = function(){
+	var parameter = location.search.substring(1, location.search.length);
+	parameter = decodeURIComponent(parameter);
+	parameter = parameter.split('=')[1];
+	var requestQuery = {
+			appliId : parameter,
+			changerName: name,
+			status: "2",
+		};
+	console.log('requestQuery', requestQuery);
+	// サーバーにデータを送信する。
+	$.ajax({
+		type : 'POST',
+		dataType : 'json',
+		url : '/myFirstApp/RejectServlet',
+		data : requestQuery,
+		async : false,
+		success : function(json) {
+			if (json === "reason") {
+				// 画面遷移
+				alert('却下理由は必須です');
+			} else {
+			// サーバーとの通信に成功した時の処理
+			// 確認のために返却値を出力
+			console.log('返却値', json);
+			alert('却下しました');
+			$('#expense').empty();
+			expense();
+			}
 
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {

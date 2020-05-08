@@ -293,6 +293,7 @@ var search = function() {
 	// サーバーからデータを取得する
 	$('#display').empty();
 	$('#editBoxMem').empty();
+	$('#searchBox').empty();
 	var getDepartmentId = document.form.department;
 	var num = getDepartmentId.selectedIndex;
 	var departmentId = getDepartmentId.options[num].value;
