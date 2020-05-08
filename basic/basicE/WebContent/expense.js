@@ -104,15 +104,6 @@ var session = function() {
 		}
 	});
 }
-var header = function() {
-	var a;
-		a = '<a href="./syainzyouhou.html">社員一覧</a>'
-				+ '<a href="./department.html">部署一覧</a>'
-				+ '<a href="./Expense.html">経費一覧</a>'
-				+ '<a href="./expenseRegist.html">経費申請</a>'
-
-	$('#header').append(a);
-}
 var logout = function() {
 	var requestQuery = {
 		q : 1
@@ -136,7 +127,6 @@ var logout = function() {
 }
 $(document).ready(function() {
 	session();
-	header();
 	expense();
 	$('#logout').click(logout);
 

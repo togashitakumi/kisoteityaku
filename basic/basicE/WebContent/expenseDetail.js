@@ -140,6 +140,7 @@ var approval = function(){
 			console.log('返却値', json);
 			alert('承認しました');
 			$('#expense').empty();
+			$('#box').empty();
 			expense();
 
 		},
@@ -154,10 +155,12 @@ var rejection = function(){
 	var parameter = location.search.substring(1, location.search.length);
 	parameter = decodeURIComponent(parameter);
 	parameter = parameter.split('=')[1];
+	var reason = $('#reason').val();
 	var requestQuery = {
 			appliId : parameter,
 			changerName: name,
 			status: "2",
+			reason: reason,
 		};
 	console.log('requestQuery', requestQuery);
 	// サーバーにデータを送信する。
@@ -177,6 +180,7 @@ var rejection = function(){
 			console.log('返却値', json);
 			alert('却下しました');
 			$('#expense').empty();
+			$('#box').empty();
 			expense();
 			}
 

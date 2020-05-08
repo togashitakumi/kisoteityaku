@@ -6,6 +6,7 @@ var userEmId;
 var userRole;
 var display = function() {
 	// サーバーからデータを取得する
+	$('#createbox').empty();
 	count = 0;
 	var requestQuery = {
 		q : 1
@@ -378,15 +379,6 @@ var session = function() {
 		}
 	});
 }
-var header = function() {
-	var a;
-		a = '<a href="./syainzyouhou.html">社員一覧</a>'
-				+ '<a href="./department.html">部署一覧</a>'
-				+ '<a href="./Expense.html">経費一覧</a>'
-				+ '<a href="./expenseRegist.html">経費申請</a>'
-
-	$('#header').append(a);
-}
 var logout = function() {
 	var requestQuery = {
 		q : 1
@@ -410,7 +402,6 @@ var logout = function() {
 }
 $(document).ready(function() {
 	session();
-	header();
 	display();
 	$('#create').click(create);
 	$('#logout').click(logout);
